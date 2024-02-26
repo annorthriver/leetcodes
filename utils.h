@@ -17,11 +17,27 @@ void print(const std::vector<std::vector<T>>& container)
 
 template <typename T>
 struct ListNode {
-     T val;
-     ListNode<T> *next;
-     ListNode(T x) : val(x), next(NULL) {}
-     ListNode() {}
+  T val;
+  ListNode<T> *next;
+  ListNode() : val(0), next(nullptr) {}
+  ListNode(T x) : val(x), next(nullptr) {}
+  ListNode(int x, ListNode<T> *next) : val(x), next(next) {}
 };
+
+template <typename T>
+void printNonCycleList(ListNode<T> *head) {
+  if (head) {
+    struct ListNode<T> *curNode = head;
+    int count = 0;
+    while(curNode) {
+      std::cout << "list[" << count << "]: " << curNode->val << std::endl;
+      curNode = curNode->next;
+      count++;
+    }
+  } else {
+    std::cout << "List is empty!" << std::endl;
+  }
+}
 
 template <typename T>
 class ListCreater {
@@ -43,35 +59,67 @@ public:
       }
     }
     end = begin;
+    return start;
   }
   void createCycle(int pos) {
-    int count = 0;
-    while (auto begin = start->next) {
-      if (pos == count) {
-        end->next = 
+    if (start == end) {
+      if (pos != 0) {
+        std::cout << "Invalid pos!" << std::endl;
+        return;
       }
-
+      end->next = start;
+      return;
+    }
+    struct ListNode<T> *curNode = start;
+    struct ListNode<T> *nextNode = curNode->next ? curNode->next : nullptr;
+    int count = 0;
+    while(curNode != end) {
+      if (count == pos) {
+        end->next = curNode;
+        return;
+      }
+      curNode = nextNode;
+      nextNode = nextNode->next;
+      count++;
+    }
+    if (count == pos) {
+      end->next = end;
     }
   }
-
+  void print() {
+    if (start) {
+      if (start == end) {
+        std::cout << "list[0]: " << start->val << std::endl;
+        return;
+      }
+      struct ListNode<T> *curNode = start;
+      struct ListNode<T> *nextNode = curNode->next ? curNode->next : nullptr;
+      int count = 0;
+      while(curNode != end) {
+        std::cout << "list[" << count << "]: " << curNode->val << std::endl;
+        curNode = nextNode;
+        nextNode = nextNode->next;
+        count++;
+      }
+      std::cout << "list[" << count << "]: " << end->val << std::endl;
+    } else {
+      std::cout << "List is empty!" << std::endl;
+    }
+  }
   ~ListCreater() {
     if (start) {
-      if (start && start == end) {
+      if (start == end) {
         delete start;
         return;
       }
       struct ListNode<T> *curNode = start;
-      struct ListNode<T> *nextNode = start->next ? start->next : nullptr;
-      while(curNode) {
+      struct ListNode<T> *nextNode = curNode->next ? curNode->next : nullptr;
+      while(curNode != end) {
         delete curNode;
         curNode = nextNode;
-        if (curNode && curNode == end) {
-          break;
-        }
-        if (curNode && curNode->next) {
-          nextNode = curNode->next;
-        }
+        nextNode = nextNode->next;
       }
+      delete end;
     }
   }
 private:
