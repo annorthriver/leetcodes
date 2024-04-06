@@ -37,6 +37,8 @@ public:
       while (!q.empty()) {
         int curSize = q.size();
         // 遍历当前的队列，获取当前所有状态的下一状态
+        // 因为是求最少移动次数，因此按层遍历，如果当前层有状态先到终点，
+        // 即为最少移动次数
         for (int i = 0; i < curSize; i++) {
           auto cur = q.front();
           q.pop();
