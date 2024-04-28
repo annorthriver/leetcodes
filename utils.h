@@ -1,4 +1,46 @@
 #include <vector>
+#include <unordered_map>
+
+template <typename T, typename S = int>
+class Disjoint {
+  private:
+    std::unordered_map<T, T> parent;
+    std::unordered_map<T, S> rank;
+  public:
+    Disjoint() = default;
+    T find(T x) {
+      if (parent.count(x) == 0) {
+        return nullptr;
+      }
+      return x == parent[x] ? x : (parent[x] = find(parent[x]));
+    }
+    void addElem(T elem) {
+      if (parent.count(elem) != 0)
+        return;
+      parent[elem] = elem;
+      rank[elem] = 0;
+    }
+    void toUnion(T x1, T x2) {
+      T f1 = find(x1);
+      T f2 = find(x2);
+      if (rank[f1] > rank[f2]) {
+        parent[f2] = f1;
+      } else {
+        parent[f1] = f2;
+        if (rank[f1] == rank[f2])
+          ++rank[f2];
+      }
+    }
+    bool isSame(T x1, T x2) {
+      return find(x1) == find(x2);
+    }
+    std::unordered_map<T, T> getNodeMap() {
+      return parent;
+    }
+    void replace(T x, T elem) {
+      parent[x] = elem;
+    }
+};
 
 template <typename T>
 void print(const std::vector<T>& container)

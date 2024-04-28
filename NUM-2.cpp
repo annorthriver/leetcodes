@@ -5,29 +5,30 @@
 #include "utils.h"
 
 ListNode<int>* addTwoNumbers(ListNode<int>* l1, ListNode<int>* l2) {
-  auto *head = new ListNode<int>();
-  auto *curNode = head;
-  int div = 0, rem = 0;
+  ListNode<int> * head = nullptr, *tail = nullptr;
+  int carry = 0;
   while (l1 || l2) {
-    int num1 = 0, num2 = 0;
-    if (l1) num1 = l1->val;
-    if (l2) num2 = l2->val;
-    int sum = num1 + num2 + div;
-    div = sum / 10;
-    rem = sum % 10;
-    curNode->val = rem;        
-    l1 = l1 ? l1->next : l1;
-    l2 = l2 ? l2->next : l2;
-    if (!l1 && !l2 && !div) {
-      curNode->next = nullptr;
-      return head;
+    int num1 = l1 ? l1->val : 0;
+    int num2 = l2 ? l2->val : 0;
+    int sum = num1 + num2 + carry;
+    int carry = sum /10;
+    int val = sum % 10;
+    if (!head) {
+      head = new ListNode<int>(val);
+      tail = head;
+    } else {
+      tail->next = new ListNode<int>(val);
+      tail = tail->next;
     }
-    curNode->next = new ListNode<int>();
-    curNode = curNode->next;
+    if (l1) {
+      l1 = l1->next;
+    }
+    if (l2) {
+      l2 = l2->next;
+    }
   }
-  if (div) {
-    curNode->val = div;
-    curNode->next = nullptr;
+  if (carry) {
+    tail->next = new ListNode<int>(carry);
   }
   return head;
 }

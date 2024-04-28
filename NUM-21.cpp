@@ -3,7 +3,7 @@
 #include <algorithm>
 #include "utils.h"
 
-ListNode<int>* mergeTwoLists(ListNode<int>* list1, ListNode<int>* list2) {
+ListNode<int>* mergeTwoLists_(ListNode<int>* list1, ListNode<int>* list2) {
   ListNode<int> *head = nullptr, *tail = nullptr;
   while(list1 || list2) {
     int num = 0;
@@ -30,6 +30,23 @@ ListNode<int>* mergeTwoLists(ListNode<int>* list1, ListNode<int>* list2) {
     }
   }
   return head;
+}
+
+ListNode<int>* mergeTwoLists(ListNode<int>* list1, ListNode<int>* list2) {
+  ListNode<int> dummy;
+  auto *pre = &dummy;
+  while(list1 && list2) {
+    if (list1->val < list2->val) {
+      pre->next = list1;
+      list1 = list1->next;
+    } else {
+      pre->next = list2;
+      list2=list2->next;
+    }
+    pre = pre->next;
+  }
+  pre->next = list1 ? list1 : list2;
+  return dummy.next;
 }
 
 int main() {

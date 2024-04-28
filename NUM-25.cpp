@@ -35,7 +35,6 @@ ListNode<int>* reverseKGroup(ListNode<int>* head, int k) {
             head = tail->next;
         }
         return hair->next;
-  return nullptr;
 }
 // 方法二：递归反转链表
 
