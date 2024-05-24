@@ -23,7 +23,7 @@ public:
       if (head == nullptr) {
         return head;
       }
-      // 只包含一个节点
+      // 只包含一个节点(左闭右开区间)
       if (head->next == tail) {
         head->next = nullptr;
         return head;

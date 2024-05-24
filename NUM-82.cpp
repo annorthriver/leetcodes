@@ -4,7 +4,7 @@
 #include "utils.h"
 
 // 三指针法：
-ListNode<int>* deleteDuplicates(ListNode<int>* head) {
+ListNode<int>* deleteDuplicates_(ListNode<int>* head) {
   auto *dummy = new ListNode<int>();
   dummy->next = head;
   auto *pre = dummy;
@@ -34,6 +34,22 @@ ListNode<int>* deleteDuplicates(ListNode<int>* head) {
 }
 
 // 简化代码： cur cur->next cur->next->next
+
+ListNode<int>* deleteDuplicates(ListNode<int>* head) {
+  ListNode<int> dummy(0, head);
+  auto *cur = &dummy;
+  while (cur->next && cur->next->next) {
+    int val = cur->next->val;
+    if (cur->next->next->val == val) {
+      while (cur->next && cur->next->val == val) {
+        cur->next = cur->next->next;
+      }
+    } else {
+      cur = cur->next;
+    }
+  }
+  return dummy.next;
+}
 
 int main() {
   std::vector<int> nums1{1,2,3,3,4,4,5};
