@@ -6,6 +6,10 @@ using namespace std;
 
 class Solution {
 public:
+    // 多种方法
+    // 方法一：位运算，二进制逐个枚举
+    // 方法二：DFS三种枚举
+    // 方法三：回溯
     void dfs(vector<vector<int>> &res, vector<int>& nums, vector<int> vec, int idx) {
       int len = nums.size();
       if (idx == len) {
