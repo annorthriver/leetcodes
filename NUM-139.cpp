@@ -6,6 +6,7 @@ using namespace std;
 
 class Solution {
 public:
+    // 完全背包问题，涉及顺序，是排列问题，先遍历背包，再遍历物品
     // s[0, i - 1] = s[0, j - 1] + s[j, i - 1]
     // dp[i] = dp[j] && check[j, i - 1]
     // dp[0] = true; 空字符串总能分割

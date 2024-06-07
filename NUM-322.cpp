@@ -5,6 +5,7 @@ using namespace std;
 
 class Solution {
 public:
+    // 完全背包问题
     // 动态转移方程：f(i) = min f(i - cj) + 1
     int coinChange(vector<int>& coins, int amount) {
       if (amount < 1) {
