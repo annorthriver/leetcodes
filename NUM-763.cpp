@@ -11,7 +11,7 @@ public:
     // 然后维护begin，end，end随pos更新，如果当前已遍历的char到达maxEnd，切割，更新start
     vector<int> partitionLabels(string s) {
       vector<int> pos(26, -1);
-      //遍历一遍string，记录每个char的pos
+      //遍历一遍string，记录每个char的pos, pos里记录的是每个字符最后出现的位置（最远位置）
       for (int i = 0; i < s.size(); i++) {
         pos[s[i] - 'a'] = i;
       }
