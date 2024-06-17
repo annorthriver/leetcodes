@@ -58,7 +58,7 @@ void solve1d(int num, int bagSpace) {
     std::cout << "res : " << dp[bagSpace] << std::endl;
 }
 
-// 6 1
+// 物品数量：6 背包容量：1
 // 2 2 3 1 5 2
 // 2 3 1 5 4 3
 int main() {

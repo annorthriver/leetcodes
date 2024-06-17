@@ -31,9 +31,11 @@ public:
         return false;
       }
       for (int i = 0; i < m; i++) {
+        // 如果当前行第一个数不是target，说明之前行没找到并且当前行及之后的行也不会有
         if (matrix[i][0] > target) {
           break;
         }
+        // 当前行最后的数也比target小，跳过当前行搜索
         if (matrix[i][n - 1] < target) {
           continue;
         }
