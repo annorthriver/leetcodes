@@ -35,6 +35,8 @@ public:
       for (int k = 0; k < num; k++) {
         for (int i = 0; i < num; i++) {
           for (int j = 0; j < num; j++) {
+            if (graph[i][j] > 0)
+              continue;
             // 注意这里可能会有精度问题
             if (graph[i][k] > 1e-6 && graph[k][j] > 1e-6) {
               graph[i][j] = graph[i][k] * graph[k][j];
